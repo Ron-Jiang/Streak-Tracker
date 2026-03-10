@@ -1,22 +1,17 @@
 import { useState } from 'react'
-import './css/App.css'
+import TopBar from './TopBar'
+import SideBar from './SideBar'
+import Services from './Services'
+import Welcome from './Welcome'
 
 function App() {
-  const [count, setCount] = useState(0)
 
-  const increment = () => {
-    setCount(count+1);
-  }
-
-  const decrement = () => {
-    setCount(count-1);
-  }
+  const [habits, setHabits] = useState([]);
+  const [loading, setLoading] = useState(false);
 
   return (
     <div>
-      <p>{count}</p>
-      <button onClick={increment}>Click to increase</button>
-      <button onClick={decrement}>Click to decrease</button>
+
     </div>   
   )
 }
