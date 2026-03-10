@@ -43,8 +43,10 @@ public class HabitServicesImpl implements HabitServices {
     // update existing Habit
     public Habit updateHabit(String habitId, String name, String description) {
         Habit theHabit = habitRepository.findById(habitId).orElseThrow(() -> new RuntimeException("Habit not found"));
-        theHabit.setHabitName(name);
-        theHabit.setHabitDescription(description);
+        if (name != null && !name.isBlank())
+            theHabit.setHabitName(name);
+        if (description != null && !description.isBlank())
+            theHabit.setHabitDescription(description);
         return habitRepository.save(theHabit);
     }
 
