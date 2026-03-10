@@ -59,7 +59,9 @@ public class HabitServicesImpl implements HabitServices {
         
         LocalDate today = LocalDate.now(ZoneId.of("America/Los_Angeles"));
         LocalDate yesterday = today.minusDays(1);
-        if (theHabit.getLastCompleted().equals(yesterday)) {
+        if (theHabit.getLastCompleted() == null) {
+            theHabit.setCurrentStreak(1);
+        } else if (theHabit.getLastCompleted().equals(yesterday)) {
             theHabit.setCurrentStreak(theHabit.getCurrentStreak() + 1);
         } else {
             theHabit.setCurrentStreak(1);
