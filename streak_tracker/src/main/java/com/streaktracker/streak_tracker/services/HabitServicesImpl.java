@@ -95,4 +95,9 @@ public class HabitServicesImpl implements HabitServices {
             habitRepository.save(habit);
         }
     }
+
+    public List<Habit> getAllHabits() {
+        List<Habit> allHabits = habitRepository.findAll();
+        return allHabits;
+    }
 }

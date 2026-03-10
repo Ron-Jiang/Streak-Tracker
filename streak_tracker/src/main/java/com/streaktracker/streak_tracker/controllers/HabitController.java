@@ -62,4 +62,8 @@ public class HabitController {
         return ResponseEntity.ok(habitServices.completeHabitToday(id));
     }
 
+    @GetMapping
+    public ResponseEntity<List<Habit>> getAllHabits() {
+        return ResponseEntity.ok(habitServices.getAllHabits());
+    }
 }

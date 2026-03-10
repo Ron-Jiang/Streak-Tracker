@@ -16,4 +16,6 @@ public interface HabitServices {
     Habit completeHabitToday(String habitId);
     // reset habit streak
     void resetHabitIfNeeded(Habit habit);
+    // get all habits
+    List<Habit> getAllHabits();
 }
