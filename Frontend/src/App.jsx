@@ -1,18 +1,32 @@
 import { useEffect, useState } from 'react'
 import { getAllHabits } from './Services'
 import TopBar from './TopBar'
+import SideBar from './SideBar'
+import AddHabit from './AddHabit'
 
 function App() {
-  const [habits, setHabits] = useState([])
-  const [loading, setLoading] = useState(true)
+  const [habits, setHabits] = useState([]);
+  const [selectedId, setSelectedId] = useState('add');
+  const [loading, setLoading] = useState(true);
 
   // get all existing habits upon mount
-  useState(() => {
+  useEffect(() => {
     getAllHabits()
-      .then(({ response }) => setHabits(response))
+      .then(({ data }) => setHabits(data))
       .finally(() => setLoading(false))
   }, []);
 
+  const selectedHabit = habits.find(h => h.id === selectedId);
+
+  const handleAdd = (habit) => {
+    setHabits(prev => [...prev, habit]);
+  }
+
+  const renderPage = () => {
+    if (selectedId === 'add') {
+      return <AddHabit onAdd={handleAdd} onSelect={setSelectedId} />
+    }
+  }
 
   return (
     <div>
@@ -20,9 +34,17 @@ function App() {
       <div>
         <TopBar />
       </div>
-      <div className='flex justify-center'>
-        <p>Hello?</p>
-        {loading ? <p>Load</p> : <p>No Load</p>}
+
+      {/* Side Bar */}
+      <div>
+        <SideBar
+          habits={habits}
+          onSelect={setSelectedId}
+        />
+      </div>
+
+      <div className='flex justify-center h-screen bg-blue-950'>
+        {renderPage()}
       </div>
     </div>
   )
