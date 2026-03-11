@@ -1,19 +1,32 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
+import { getAllHabits } from './Services'
 import TopBar from './TopBar'
-import SideBar from './SideBar'
-import Services from './Services'
-import Welcome from './Welcome'
 
 function App() {
+  const [habits, setHabits] = useState([])
+  const [loading, setLoading] = useState(true)
 
-  const [habits, setHabits] = useState([]);
-  const [loading, setLoading] = useState(false);
+  // get all existing habits upon mount
+  useState(() => {
+    getAllHabits()
+      .then(({ response }) => setHabits(response))
+      .finally(() => setLoading(false))
+  }, []);
+
 
   return (
     <div>
-
-    </div>   
+      {/* Top Bar */}
+      <div>
+        <TopBar />
+      </div>
+      <div className='flex justify-center'>
+        <p>Hello?</p>
+        {loading ? <p>Load</p> : <p>No Load</p>}
+      </div>
+    </div>
   )
+
 }
 
 export default App
