@@ -21,3 +21,7 @@ export const deleteHabit = (id) => {
 export const completeHabitToday = (id) => {
     return axios.post(`${APIURL}/${id}/complete`);
 }
+
+export const habitsUpdate = () => {
+    return axios.post(`${APIURL}/check`);
+}

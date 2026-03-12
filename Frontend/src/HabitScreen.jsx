@@ -6,7 +6,9 @@ function HabitScreen({selectedHabit, onUpdate, onDelete}) {
         if (!selectedHabit.lastCompleted) {
             return false;
         }
-        return selectedHabit.lastCompleted === new Date().toISOString().split('T')[0];
+        const toPST = (date) => new Date(date).toLocaleDateString('en-CA', { timeZone: 'America/Los_Angeles' });
+        const today = toPST(new Date().toISOString().split('T')[0]);
+        return selectedHabit.lastCompleted === today;
     }
 
     const handleIncrement = async () => {

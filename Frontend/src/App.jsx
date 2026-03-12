@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react'
-import { getAllHabits } from './Services'
+import { getAllHabits, habitsUpdate } from './Services'
 import TopBar from './TopBar'
 import SideBar from './SideBar'
 import AddHabit from './AddHabit'
@@ -13,7 +13,7 @@ function App() {
 
   // get all existing habits upon mount
   useEffect(() => {
-    getAllHabits()
+    habitsUpdate()
       .then(({ data }) => setHabits(data))
       .finally(() => setLoading(false))
   }, []);

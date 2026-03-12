@@ -65,6 +65,8 @@ public class HabitServicesImpl implements HabitServices {
             theHabit.setCurrentStreak(1);
         } else if (theHabit.getLastCompleted().equals(yesterday)) {
             theHabit.setCurrentStreak(theHabit.getCurrentStreak() + 1);
+        } else if (theHabit.getLastCompleted().equals(today)) {
+            return theHabit;
         } else {
             theHabit.setCurrentStreak(1);
         }

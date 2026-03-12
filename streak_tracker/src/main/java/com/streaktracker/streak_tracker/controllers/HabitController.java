@@ -66,4 +66,9 @@ public class HabitController {
     public ResponseEntity<List<Habit>> getAllHabits() {
         return ResponseEntity.ok(habitServices.getAllHabits());
     }
+
+    @PostMapping("/check")
+    public ResponseEntity<List<Habit>> checkAllHabits() {
+        return ResponseEntity.ok(habitServices.habitsUpdate());
+    }
 }
