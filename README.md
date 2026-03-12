@@ -1,6 +1,6 @@
 # streak-tracker
 
-## Proposed Languages and Tools:
+## Languages and Tools:
 - Java
 - JavaScript
 - Tailwind CSS
