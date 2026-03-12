@@ -60,7 +60,7 @@ public class HabitServicesImpl implements HabitServices {
     public Habit completeHabitToday(String habitId) {
         Habit theHabit = habitRepository.findById(habitId).orElseThrow(() -> new RuntimeException("Habit not found"));
 
-        LocalDate today = LocalDate.now(ZoneId.of("America/Los_Angeles"));
+        LocalDate today = LocalDate.now(); // system time
         LocalDate yesterday = today.minusDays(1);
         if (theHabit.getLastCompleted() == null) {
             theHabit.setCurrentStreak(1);
@@ -82,7 +82,7 @@ public class HabitServicesImpl implements HabitServices {
         Completion completion = Completion.builder()
                 .habitId(habitId)
                 .userId(userId)
-                .completedHour(ZonedDateTime.now(ZoneId.of("America/Los_Angeles")).getHour())
+                .completedHour(ZonedDateTime.now().getHour()) // system time?
                 .build();
         completionRepository.save(completion);
         return theHabit;
@@ -92,7 +92,7 @@ public class HabitServicesImpl implements HabitServices {
     public void resetHabitIfNeeded(Habit habit) {
         if (habit.getLastCompleted() == null)
             return;
-        LocalDate today = LocalDate.now(ZoneId.of("America/Los_Angeles"));
+        LocalDate today = LocalDate.now();
         LocalDate yesterday = today.minusDays(1);
         if (!habit.getLastCompleted().equals(today) && !habit.getLastCompleted().equals(yesterday)) {
             habit.setCurrentStreak(0);

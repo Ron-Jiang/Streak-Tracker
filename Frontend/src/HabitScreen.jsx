@@ -6,9 +6,32 @@ function HabitScreen({selectedHabit, onUpdate, onDelete}) {
         if (!selectedHabit.lastCompleted) {
             return false;
         }
-        const toPST = (date) => new Date(date).toLocaleDateString('en-CA', { timeZone: 'America/Los_Angeles' });
-        const today = toPST(new Date().toISOString().split('T')[0]);
-        return selectedHabit.lastCompleted === today;
+        // default format: 2026-03-12
+        const today = new Date().toLocaleDateString('en-CA'); // should be system time, en-CA 0 pads
+        // console.log(`TODAY: ${today}`);
+        // console.log('===== Debugging starts here =====');
+        // console.log(`Here is the last completed date stored: ${selectedHabit.lastCompleted}. This should already be in local timezone`);
+        // console.log(`> Here is the time we try to get for TODAY. ${today}`);
+        // const time = new Date().toLocaleTimeString();
+        // console.log(`>> Time?: ${time}`);
+        // console.log('===== START =====');
+        const todayTimeFields = today.split('-');
+        // console.log(todayTimeFields);
+        // console.log(todayTimeFields[0]); //yr
+        // console.log(todayTimeFields[1]); // month
+        // console.log(todayTimeFields[2]); // day
+        // console.log(' --- ');
+        const lastCompletedTimeFields = selectedHabit.lastCompleted.split('-');
+        // console.log(lastCompletedTimeFields[0]); // yr 
+        // console.log(lastCompletedTimeFields[1]); // month
+        // console.log(lastCompletedTimeFields[2]); // day
+        // console.log(' --- results ---');
+        if ((todayTimeFields[0] === lastCompletedTimeFields[0]) && (todayTimeFields[1] === lastCompletedTimeFields[1]) && (todayTimeFields[2] === lastCompletedTimeFields[2])) {
+            return true;
+        } else {
+            return false;
+        }
+        // return selectedHabit.lastCompleted === today;
     }
 
     const handleIncrement = async () => {
