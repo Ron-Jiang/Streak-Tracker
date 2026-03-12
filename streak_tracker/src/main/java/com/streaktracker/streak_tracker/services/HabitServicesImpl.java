@@ -22,14 +22,15 @@ public class HabitServicesImpl implements HabitServices {
     private final CompletionRepository completionRepository;
 
     private final String userId = "temp";
-        // create a habit
+
+    // create a habit
     public Habit createHabit(String name, String description) {
         Habit newHabit = Habit.builder()
-                            .userId(userId)
-                            .habitName(name)
-                            .habitDescription(description)
-                            .createdAt(Instant.now())
-                            .build();
+                .userId(userId)
+                .habitName(name)
+                .habitDescription(description)
+                .createdAt(Instant.now())
+                .build();
         return habitRepository.save(newHabit);
     }
 
@@ -58,7 +59,7 @@ public class HabitServicesImpl implements HabitServices {
     // complete habit
     public Habit completeHabitToday(String habitId) {
         Habit theHabit = habitRepository.findById(habitId).orElseThrow(() -> new RuntimeException("Habit not found"));
-        
+
         LocalDate today = LocalDate.now(ZoneId.of("America/Los_Angeles"));
         LocalDate yesterday = today.minusDays(1);
         if (theHabit.getLastCompleted() == null) {
@@ -79,13 +80,14 @@ public class HabitServicesImpl implements HabitServices {
         habitRepository.save(theHabit);
 
         Completion completion = Completion.builder()
-                                    .habitId(habitId)
-                                    .userId(userId)
-                                    .completedHour(ZonedDateTime.now(ZoneId.of("America/Los_Angeles")).getHour())
-                                    .build();
+                .habitId(habitId)
+                .userId(userId)
+                .completedHour(ZonedDateTime.now(ZoneId.of("America/Los_Angeles")).getHour())
+                .build();
         completionRepository.save(completion);
         return theHabit;
     }
+
     // reset habit streak
     public void resetHabitIfNeeded(Habit habit) {
         if (habit.getLastCompleted() == null)
@@ -101,5 +103,20 @@ public class HabitServicesImpl implements HabitServices {
     public List<Habit> getAllHabits() {
         List<Habit> allHabits = habitRepository.findAll();
         return allHabits;
+    }
+
+    // // // // // // debugging services // // // // // //
+    public Habit manuallySetHabit(String name, String description, Integer curentStreak, Integer longestStreak,
+            LocalDate lastCompleted) {
+        Habit newHabit = Habit.builder()
+                .userId(userId)
+                .habitName(name)
+                .habitDescription(description)
+                .currentStreak(curentStreak)
+                .longestStreak(longestStreak)
+                .lastCompleted(lastCompleted)
+                .createdAt(Instant.now())
+                .build();
+        return habitRepository.save(newHabit);
     }
 }
