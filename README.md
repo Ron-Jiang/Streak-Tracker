@@ -1,13 +1,7 @@
-# streak-tracker
+# streak-tracker (Java, JavaScript, Spring Boot, React, MongoDB, Tailwind CSS, Maven)
 
 ## Languages and Tools:
-- Java
-- JavaScript
-- Tailwind CSS
-- Spring Boot
-- React
-- MongoDB
-- Maven
+
 
 ## Mission:
 - Supports the user with maintaining their habits by utilizing a streak system, helping the user visualize their progress, and share a sense of pride of maintaining a high streak.
