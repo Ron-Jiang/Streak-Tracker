@@ -15,4 +15,7 @@ public class StreakTrackerApplication {
 brew services start mongodb-community@8.2
 mongosh
 brew services stop mongodb-community@8.2
+
+// source ~/.nvm/nvm.sh
+// npm run dev
 */

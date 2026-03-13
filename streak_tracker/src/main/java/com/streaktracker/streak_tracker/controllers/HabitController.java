@@ -40,7 +40,7 @@ import lombok.RequiredArgsConstructor;
 @CrossOrigin
 public class HabitController {
     private final HabitServices habitServices;
-    
+
     @PostMapping
     public ResponseEntity<Habit> createHabit(@RequestBody Habit habit) {
         return ResponseEntity.ok(habitServices.createHabit(habit.getHabitName(), habit.getHabitDescription()));
@@ -65,5 +65,17 @@ public class HabitController {
     @GetMapping
     public ResponseEntity<List<Habit>> getAllHabits() {
         return ResponseEntity.ok(habitServices.getAllHabits());
+    }
+
+    @PostMapping("/check")
+    public ResponseEntity<List<Habit>> checkAllHabits() {
+        return ResponseEntity.ok(habitServices.habitsUpdate());
+    }
+
+    // // // // // // debugging endpoints // // // // // //
+    @PostMapping("/manualtest")
+    public ResponseEntity<Habit> manuallySetHabit(@RequestBody Habit habit) {
+        return ResponseEntity.ok(habitServices.manuallySetHabit(habit.getHabitName(), habit.getHabitDescription(),
+                habit.getCurrentStreak(), habit.getLongestStreak(), habit.getLastCompleted()));
     }
 }
