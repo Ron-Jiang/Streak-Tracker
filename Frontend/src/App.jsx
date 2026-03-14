@@ -46,19 +46,10 @@ function App() {
   return (
     <div>
       {/* Top Bar */}
-      <div>
-        <TopBar />
-      </div>
-
+      <TopBar />
       {/* Side Bar */}
-      <div>
-        <SideBar
-          habits={habits}
-          onSelect={setSelectedId}
-        />
-      </div>
-
-      <div className='flex justify-center h-screen bg-blue-950'>
+      <SideBar habits={habits} onSelect={setSelectedId} />
+      <div className='flex justify-center h-screen bg-blue-950 pt-16 ml-20'>
         {renderPage()}
       </div>
     </div>
