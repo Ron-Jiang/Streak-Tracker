@@ -1,6 +1,7 @@
 # Streak-Tracker 
 Java, JavaScript, Tailwind CSS
 <br> Spring Boot, React, MongoDB, Maven
+<br> OAuth 2.0
 
 ## Mission:
 Supports the user with maintaining their habits by utilizing a streak system, helping the user visualize their progress, and share a sense of pride in maintaining a high streak.
