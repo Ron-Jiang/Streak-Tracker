@@ -18,4 +18,8 @@ brew services stop mongodb-community@8.2
 
 // source ~/.nvm/nvm.sh
 // npm run dev
+
+http://localhost:8080
+
+localhost:8080/oauth2/authorization/github
 */

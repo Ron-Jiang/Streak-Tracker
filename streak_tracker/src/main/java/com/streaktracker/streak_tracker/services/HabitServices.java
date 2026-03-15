@@ -6,27 +6,27 @@ import com.streaktracker.streak_tracker.entities.Habit;
 
 public interface HabitServices {
     // create a habit
-    Habit createHabit(String name, String description);
+    Habit createHabit(String userId, String name, String description);
 
     // get habits
-    List<Habit> habitsUpdate();
+    List<Habit> habitsUpdate(String userId);
 
-    // update existing habits
-    Habit updateHabit(String habitId, String name, String description);
+    // // update existing habits
+    // Habit updateHabit(String habitId, String name, String description);
 
     // delete existing habit
-    void deleteHabit(String habitId);
+    void deleteHabit(String userId, String habitId);
 
     // complete habit
-    Habit completeHabitToday(String habitId);
+    Habit completeHabitToday(String userId, String habitId);
 
     // reset habit streak
     void resetHabitIfNeeded(Habit habit);
 
     // get all habits
-    List<Habit> getAllHabits();
+    List<Habit> getAllHabits(String userId);
 
     // // // // // // debugging services // // // // // //
-    Habit manuallySetHabit(String name, String description, Integer curentStreak, Integer longestStreak,
-            LocalDate lastCompleted);
+    // Habit manuallySetHabit(String name, String description, Integer curentStreak, Integer longestStreak,
+    //         LocalDate lastCompleted);
 }

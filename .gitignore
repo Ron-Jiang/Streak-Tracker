@@ -1,2 +1,8 @@
 ### DS STORE
 .DS_Store
+
+*.class
+Keys.java
+
+application.properties
+application-secret.properties
