@@ -7,7 +7,10 @@ import java.time.ZonedDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.management.RuntimeErrorException;
+
 import org.springframework.cglib.core.Local;
+import org.springframework.security.oauth2.core.user.OAuth2User;
 import org.springframework.stereotype.Service;
 
 import com.streaktracker.streak_tracker.entities.*;
@@ -21,10 +24,10 @@ public class HabitServicesImpl implements HabitServices {
     private final HabitRepository habitRepository;
     private final CompletionRepository completionRepository;
 
-    private final String userId = "temp";
+    // private final String userId = "temp";
 
     // create a habit
-    public Habit createHabit(String name, String description) {
+    public Habit createHabit(String userId, String name, String description) {
         Habit newHabit = Habit.builder()
                 .userId(userId)
                 .habitName(name)
@@ -35,30 +38,37 @@ public class HabitServicesImpl implements HabitServices {
     }
 
     // get Habit
-    public List<Habit> habitsUpdate() {
+    public List<Habit> habitsUpdate(String userId) {
         List<Habit> habits = habitRepository.findByUserId(userId);
         habits.forEach(this::resetHabitIfNeeded);
         return habits;
     }
 
-    // update existing Habit
-    public Habit updateHabit(String habitId, String name, String description) {
-        Habit theHabit = habitRepository.findById(habitId).orElseThrow(() -> new RuntimeException("Habit not found"));
-        if (name != null && !name.isBlank())
-            theHabit.setHabitName(name);
-        if (description != null && !description.isBlank())
-            theHabit.setHabitDescription(description);
-        return habitRepository.save(theHabit);
-    }
+    // // update existing Habit
+    // public Habit updateHabit(String habitId, String name, String description) {
+    //     Habit theHabit = habitRepository.findById(habitId).orElseThrow(() -> new RuntimeException("Habit not found"));
+    //     if (name != null && !name.isBlank())
+    //         theHabit.setHabitName(name);
+    //     if (description != null && !description.isBlank())
+    //         theHabit.setHabitDescription(description);
+    //     return habitRepository.save(theHabit);
+    // }
 
     // delete existing habit
-    public void deleteHabit(String habitId) {
+    public void deleteHabit(String userId, String habitId) {
+        Habit habitToBeDeleted = habitRepository.findById(habitId).orElseThrow(() -> new RuntimeException("Habit not found"));
+        if (!habitToBeDeleted.getUserId().equals(userId)) {
+            throw new RuntimeException("Unauthorized for user");
+        }
         habitRepository.deleteById(habitId);
     }
 
     // complete habit
-    public Habit completeHabitToday(String habitId) {
+    public Habit completeHabitToday(String userId, String habitId) {
         Habit theHabit = habitRepository.findById(habitId).orElseThrow(() -> new RuntimeException("Habit not found"));
+        if (!theHabit.getUserId().equals(userId))  {
+            throw new RuntimeException("Unauthorized for user");
+        }
 
         LocalDate today = LocalDate.now(); // system time
         LocalDate yesterday = today.minusDays(1);
@@ -80,8 +90,8 @@ public class HabitServicesImpl implements HabitServices {
         habitRepository.save(theHabit);
 
         Completion completion = Completion.builder()
-                .habitId(habitId)
                 .userId(userId)
+                .habitId(habitId)
                 .completedHour(ZonedDateTime.now().getHour()) // system time?
                 .build();
         completionRepository.save(completion);
@@ -100,23 +110,22 @@ public class HabitServicesImpl implements HabitServices {
         }
     }
 
-    public List<Habit> getAllHabits() {
-        List<Habit> allHabits = habitRepository.findAll();
-        return allHabits;
+    public List<Habit> getAllHabits(String userId) {
+        return habitRepository.findByUserId(userId);
     }
 
     // // // // // // debugging services // // // // // //
-    public Habit manuallySetHabit(String name, String description, Integer curentStreak, Integer longestStreak,
-            LocalDate lastCompleted) {
-        Habit newHabit = Habit.builder()
-                .userId(userId)
-                .habitName(name)
-                .habitDescription(description)
-                .currentStreak(curentStreak)
-                .longestStreak(longestStreak)
-                .lastCompleted(lastCompleted)
-                .createdAt(Instant.now())
-                .build();
-        return habitRepository.save(newHabit);
-    }
+    // public Habit manuallySetHabit(String name, String description, Integer curentStreak, Integer longestStreak,
+    //         LocalDate lastCompleted) {
+    //     Habit newHabit = Habit.builder()
+    //             .userId(userId)
+    //             .habitName(name)
+    //             .habitDescription(description)
+    //             .currentStreak(curentStreak)
+    //             .longestStreak(longestStreak)
+    //             .lastCompleted(lastCompleted)
+    //             .createdAt(Instant.now())
+    //             .build();
+    //     return habitRepository.save(newHabit);
+    // }
 }
