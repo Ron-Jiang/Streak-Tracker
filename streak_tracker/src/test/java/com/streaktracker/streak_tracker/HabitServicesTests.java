@@ -110,6 +110,24 @@ public class HabitServicesTests {
     }
 
     @Test
+    public void streakCompletedYesterdayDoesNotResetTest() {
+        LocalDate today = LocalDate.now();
+        LocalDate yesterday = today.minusDays(1);
+        Habit habit = Habit.builder()
+                .id("1")
+                .userId("User")
+                .habitName("Test")
+                .habitDescription("Test description")
+                .currentStreak(10)
+                .longestStreak(10)
+                .lastCompleted(yesterday)
+                .build();
+        habitServices.resetHabitIfNeeded(habit);
+        assertEquals(10, habit.getCurrentStreak());
+        assertEquals(10, habit.getLongestStreak());
+    }
+
+    @Test
     public void nullLastCompletionShouldNotHaveProblemsTest() {
         Habit habit = Habit.builder()
                 .id("1")
