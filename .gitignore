@@ -3,3 +3,5 @@
 
 *.class
 Keys.java
+
+application-secret.properties
