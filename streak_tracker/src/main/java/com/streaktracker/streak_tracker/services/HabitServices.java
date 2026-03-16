@@ -1,6 +1,5 @@
 package com.streaktracker.streak_tracker.services;
 
-import java.time.LocalDate;
 import java.util.List;
 import com.streaktracker.streak_tracker.entities.Habit;
 
@@ -10,9 +9,6 @@ public interface HabitServices {
 
     // get habits
     List<Habit> habitsUpdate(String userId);
-
-    // // update existing habits
-    // Habit updateHabit(String habitId, String name, String description);
 
     // delete existing habit
     void deleteHabit(String userId, String habitId);
@@ -25,6 +21,9 @@ public interface HabitServices {
 
     // get all habits
     List<Habit> getAllHabits(String userId);
+
+    // // update existing habits
+    // Habit updateHabit(String habitId, String name, String description);
 
     // // // // // // debugging services // // // // // //
     // Habit manuallySetHabit(String name, String description, Integer curentStreak, Integer longestStreak,

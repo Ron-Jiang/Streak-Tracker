@@ -2,9 +2,7 @@ package com.streaktracker.streak_tracker.services;
 
 import java.time.Instant;
 import java.time.LocalDate;
-
 import java.time.ZonedDateTime;
-
 import java.util.List;
 
 import org.springframework.stereotype.Service;
@@ -19,8 +17,6 @@ import lombok.AllArgsConstructor;
 public class HabitServicesImpl implements HabitServices {
     private final HabitRepository habitRepository;
     private final CompletionRepository completionRepository;
-
-    // private final String userId = "temp";
 
     // create a habit
     public Habit createHabit(String userId, String name, String description) {
@@ -39,17 +35,6 @@ public class HabitServicesImpl implements HabitServices {
         habits.forEach(this::resetHabitIfNeeded);
         return habits;
     }
-
-    // // update existing Habit
-    // public Habit updateHabit(String habitId, String name, String description) {
-    // Habit theHabit = habitRepository.findById(habitId).orElseThrow(() -> new
-    // RuntimeException("Habit not found"));
-    // if (name != null && !name.isBlank())
-    // theHabit.setHabitName(name);
-    // if (description != null && !description.isBlank())
-    // theHabit.setHabitDescription(description);
-    // return habitRepository.save(theHabit);
-    // }
 
     // delete existing habit
     public void deleteHabit(String userId, String habitId) {
@@ -111,6 +96,17 @@ public class HabitServicesImpl implements HabitServices {
     public List<Habit> getAllHabits(String userId) {
         return habitRepository.findByUserId(userId);
     }
+
+    // // update existing Habit
+    // public Habit updateHabit(String habitId, String name, String description) {
+    // Habit theHabit = habitRepository.findById(habitId).orElseThrow(() -> new
+    // RuntimeException("Habit not found"));
+    // if (name != null && !name.isBlank())
+    // theHabit.setHabitName(name);
+    // if (description != null && !description.isBlank())
+    // theHabit.setHabitDescription(description);
+    // return habitRepository.save(theHabit);
+    // }
 
     // // // // // // debugging services // // // // // //
     // public Habit manuallySetHabit(String name, String description, Integer

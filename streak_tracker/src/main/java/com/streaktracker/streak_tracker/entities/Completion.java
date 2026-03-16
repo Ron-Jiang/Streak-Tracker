@@ -1,7 +1,6 @@
 package com.streaktracker.streak_tracker.entities;
 
 import java.time.Instant;
-import java.time.LocalDate;
 
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.index.CompoundIndex;

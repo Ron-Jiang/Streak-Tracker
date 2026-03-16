@@ -35,11 +35,6 @@ public class HabitController {
         return ResponseEntity.ok(habitServices.createHabit(getUserId(principal), habit.getHabitName(), habit.getHabitDescription()));
     }
 
-    // @PutMapping("/{id}")
-    // public ResponseEntity<Habit> updateHabit(@PathVariable String id, @RequestBody Habit habit) {
-    //     return ResponseEntity.ok(habitServices.updateHabit(id, habit.getHabitName(), habit.getHabitDescription()));
-    // }
-
     @DeleteMapping("/{id}")
     public ResponseEntity<String> deleteHabit(@PathVariable String id, @AuthenticationPrincipal OAuth2User principal) {
         habitServices.deleteHabit(getUserId(principal), id);
@@ -60,6 +55,11 @@ public class HabitController {
     public ResponseEntity<List<Habit>> checkAllHabits(@AuthenticationPrincipal OAuth2User principal) {
         return ResponseEntity.ok(habitServices.habitsUpdate(getUserId(principal)));
     }
+
+    // @PutMapping("/{id}")
+    // public ResponseEntity<Habit> updateHabit(@PathVariable String id, @RequestBody Habit habit) {
+    //     return ResponseEntity.ok(habitServices.updateHabit(id, habit.getHabitName(), habit.getHabitDescription()));
+    // }
 
     // // // // // // debugging endpoints // // // // // //
     // @PostMapping("/manualtest")
