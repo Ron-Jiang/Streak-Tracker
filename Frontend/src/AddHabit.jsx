@@ -33,7 +33,6 @@ function AddHabit({ onAdd, onSelect }) {
                 <p className="text-zinc-500 text-xs tracking-widest mb-1">Start Here</p>
                 <h1 className="text-white font-bold tracking-wider text-4xl">Add a New Habit</h1>
             </div>
-
             <div>
                 <div>
                     <label className="block text-zinc-500 text-xs tracking-widest mb-2">Name</label>
@@ -58,7 +57,6 @@ function AddHabit({ onAdd, onSelect }) {
                     />
                 </div>
             </div>
-
             <button onClick={handleSubmit} className="bg-amber-500 text-black font-bold text-sm tracking-wider px-6 py-3 rounded-lg w-fit hover:opacity-80 transition-opacity cursor-pointer">Create</button>
         </div >
     )
