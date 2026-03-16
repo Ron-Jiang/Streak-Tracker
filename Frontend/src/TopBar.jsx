@@ -3,15 +3,15 @@ import {logout} from './Services'
 function TopBar({user}) {
     return (
         <>
-            <div className='bg-amber-300 h-16 fixed top-0 left-0 right-0 z-10'>
-                <div className='flex items-center justify-between'>
-                    <p className='ml-5'>THE STREAK APP</p>
+            <div className='flex items-center justify-between px-6 h-14 bg-zinc-950 border-b border-zinc-800 fixed top-0 left-0 right-0 z-10'>
+                <span className='text-amber-500 font-bold text-lg'>THE STREAK APP</span>
+                <div className='flex items-center gap-3'>
                     {user?.avatar_url ? (
-                        <img src={user.avatar_url} alt="user's GitHub avatar" className='m-3 mr-5 h-10 w-10 rounded-full' />
+                        <img src={user.avatar_url} alt="user's GitHub avatar" className='h-10 w-10 rounded-full border border-zinc-700' />
                     ) :(
-                        <div className='m-3 mr-5 flex h-10 w-10 items-center justify-center rounded-4xl bg-blue-400'></div>
+                        <div className='h-10 w-10 flex items-center rounded-full bg-zinc-700 border border-zinc-300'></div>
                     )}
-                    <button onClick={logout} className='cursor-pointer border-2 border-amber-600'>Log Out</button>
+                    <button onClick={logout} className='text-zinc-500 text-xs tracking-wider hover:text-white  transition-colors cursor-pointer'>Log Out</button>
                 </div>
             </div>
         </>

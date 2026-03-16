@@ -62,10 +62,10 @@ function App() {
   return (
     <div>
       {/* Top Bar */}
-      <TopBar user={user}/>
+      {authenticated && <TopBar user={user}/>}
       {/* Side Bar */}
-      <SideBar habits={habits} onSelect={setSelectedId} />
-      <div className='flex justify-center h-screen bg-blue-950 pt-16 ml-20'>
+      {authenticated && <SideBar habits={habits} onSelect={setSelectedId} />}
+      <div className={authenticated ? 'flex justify-center h-screen bg-zinc-950 pt-14 ml-20' : ''}>
         {renderPage()}
       </div>
     </div>
