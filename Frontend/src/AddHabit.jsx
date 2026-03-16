@@ -31,7 +31,6 @@ function AddHabit({onAdd, onSelect}) {
         <>
             <div className="text-amber-700">
                 <div className="flex flex-col">
-                    
                     <input 
                         type="text" 
                         name="habitName"

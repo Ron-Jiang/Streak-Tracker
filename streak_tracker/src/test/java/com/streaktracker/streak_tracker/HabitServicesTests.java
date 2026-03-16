@@ -1,5 +1,10 @@
 package com.streaktracker.streak_tracker;
 
+import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Optional;
+
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.*;
@@ -10,16 +15,10 @@ import com.streaktracker.streak_tracker.repositories.CompletionRepository;
 import com.streaktracker.streak_tracker.repositories.HabitRepository;
 import com.streaktracker.streak_tracker.services.HabitServicesImpl;
 
-import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.*;
-
-import java.time.LocalDate;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Optional;
 
 @ExtendWith(MockitoExtension.class)
 public class HabitServicesTests {
@@ -63,7 +62,6 @@ public class HabitServicesTests {
         List<Habit> habits = new ArrayList<>();
         habits.add(habit);
         Mockito.when(habitRepository.findByUserId("User")).thenReturn(habits);
-
         List<Habit> result = habitServices.habitsUpdate("User");
         assertEquals(1, result.size());
         assertEquals(0, result.get(0).getCurrentStreak());
@@ -85,7 +83,6 @@ public class HabitServicesTests {
         List<Habit> habits = new ArrayList<>();
         habits.add(habit);
         Mockito.when(habitRepository.findByUserId("User")).thenReturn(habits);
-
         List<Habit> result = habitServices.habitsUpdate("User");
         assertEquals(1, result.size());
         assertEquals(0, result.get(0).getCurrentStreak());
@@ -156,7 +153,6 @@ public class HabitServicesTests {
                 .lastCompleted(null)
                 .build();
         Mockito.when(habitRepository.findById("1")).thenReturn(Optional.of(habit));
-
         habitServices.deleteHabit("User", "1");
         verify(habitRepository, times(1)).deleteById("1");
     }
@@ -173,7 +169,6 @@ public class HabitServicesTests {
                 .lastCompleted(null)
                 .build();
         Mockito.when(habitRepository.findById("1")).thenReturn(Optional.of(habit));
-
         assertThrows(RuntimeException.class, () -> habitServices.deleteHabit("User2", "1"));
         verify(habitRepository, times(0)).deleteById("1");
     }
@@ -192,7 +187,6 @@ public class HabitServicesTests {
                 .lastCompleted(null)
                 .build();
         Mockito.when(habitRepository.findById("1")).thenReturn(Optional.of(habit));
-
         Habit result = habitServices.completeHabitToday("User", "1");
         assertEquals(1, result.getCurrentStreak());
     }
@@ -210,7 +204,6 @@ public class HabitServicesTests {
                 .lastCompleted(null)
                 .build();
         Mockito.when(habitRepository.findById("1")).thenReturn(Optional.of(habit));
-
         assertThrows(RuntimeException.class, () -> habitServices.completeHabitToday("User2", "1"));
     }
 
@@ -229,7 +222,6 @@ public class HabitServicesTests {
                 .lastCompleted(yesterday)
                 .build();
         Mockito.when(habitRepository.findById("1")).thenReturn(Optional.of(habit));
-
         Habit result = habitServices.completeHabitToday("User", "1");
         assertEquals(11, result.getCurrentStreak());
     }
@@ -247,7 +239,6 @@ public class HabitServicesTests {
                 .lastCompleted(today)
                 .build();
         Mockito.when(habitRepository.findById("1")).thenReturn(Optional.of(habit));
-
         Habit result = habitServices.completeHabitToday("User", "1");
         assertEquals(10, result.getCurrentStreak());
     }
@@ -266,7 +257,6 @@ public class HabitServicesTests {
                 .lastCompleted(dayBeforeYesterday)
                 .build();
         Mockito.when(habitRepository.findById("1")).thenReturn(Optional.of(habit));
-
         Habit result = habitServices.completeHabitToday("User", "1");
         assertEquals(1, result.getCurrentStreak());
     }
@@ -285,7 +275,6 @@ public class HabitServicesTests {
                 .lastCompleted(yesterday)
                 .build();
         Mockito.when(habitRepository.findById("1")).thenReturn(Optional.of(habit));
-
         Habit result = habitServices.completeHabitToday("User", "1");
         assertEquals(11, result.getCurrentStreak());
         assertEquals(11, result.getLongestStreak());
@@ -314,47 +303,16 @@ public class HabitServicesTests {
                 .longestStreak(0)
                 .lastCompleted(null)
                 .build();
-        Habit habit3 = Habit.builder()
-                .id("3")
-                .userId("OtherUser")
-                .habitName("Test3")
-                .habitDescription("Test description3")
-                .currentStreak(0)
-                .longestStreak(0)
-                .lastCompleted(null)
-                .build();
         List<Habit> allValidHabits = new ArrayList<>();
         allValidHabits.add(habit1);
         allValidHabits.add(habit2);
         Mockito.when(habitRepository.findByUserId("User")).thenReturn(allValidHabits);
-
         List<Habit> result = habitServices.getAllHabits("User");
-        
         assertEquals(allValidHabits, result);
     }
 
     @Test
     public void getAllHabitsFromValidUser2Test() {
-        LocalDate today = LocalDate.now();
-        LocalDate yesterday = today.minusDays(1);
-        Habit habit1 = Habit.builder()
-                .id("1")
-                .userId("User")
-                .habitName("Test1")
-                .habitDescription("Test description1")
-                .currentStreak(10)
-                .longestStreak(10)
-                .lastCompleted(yesterday)
-                .build();
-        Habit habit2 = Habit.builder()
-                .id("2")
-                .userId("User")
-                .habitName("Test2")
-                .habitDescription("Test description2")
-                .currentStreak(0)
-                .longestStreak(0)
-                .lastCompleted(null)
-                .build();
         Habit habit3 = Habit.builder()
                 .id("3")
                 .userId("OtherUser")
@@ -367,9 +325,7 @@ public class HabitServicesTests {
         List<Habit> allValidHabits = new ArrayList<>();
         allValidHabits.add(habit3);
         Mockito.when(habitRepository.findByUserId("OtherUser")).thenReturn(allValidHabits);
-
         List<Habit> result = habitServices.getAllHabits("OtherUser");
-        
         assertEquals(allValidHabits, result);
     }
 
@@ -377,10 +333,7 @@ public class HabitServicesTests {
     public void getAllHabitsFromInalidUserTest() {
         List<Habit> allValidHabits = new ArrayList<>();
         Mockito.when(habitRepository.findByUserId("User3")).thenReturn(allValidHabits);
-
         List<Habit> result = habitServices.getAllHabits("User3");
-        
         assertEquals(allValidHabits, result);
     }
-
 }

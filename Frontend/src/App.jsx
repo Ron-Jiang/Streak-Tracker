@@ -12,22 +12,6 @@ function App() {
   const [selectedId, setSelectedId] = useState(null);
   const [loading, setLoading] = useState(true);
   const [authenticated, setAuthenticated] = useState(false);
-  // const [token, setToken] = useState(null);
-
-
-  
-  // useEffect(() => {
-  //   const params = new URLSearchParams(window.location.search);
-  //   const urlToken = params.get('token');
-  //   if (urlToken) {
-  //     setToken(urlToken);
-  //     window.history.replaceState({}, '', '/');
-  //     setAuthenticated(true);
-  //     habitsUpdate()
-  //     .then(({ data }) => setHabits(data))
-  //     .finally(() => setLoading(false))
-  //   }
-  // }, []);
 
   useEffect(() => {
     fetch('http://localhost:8080/user', {credentials: 'include'})
@@ -42,13 +26,6 @@ function App() {
         }
       })
   }, []);
-
-  // get all existing habits upon mount
-  // useEffect(() => {
-  //   habitsUpdate()
-  //     .then(({ data }) => setHabits(data))
-  //     .finally(() => setLoading(false))
-  // }, []);
 
   const selectedHabit = habits.find(h => h.id === selectedId) || null;
 
@@ -88,7 +65,6 @@ function App() {
       </div>
     </div>
   )
-
 }
 
 export default App
