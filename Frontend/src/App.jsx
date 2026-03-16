@@ -10,19 +10,24 @@ import Login from './Login'
 function App() {
   const [habits, setHabits] = useState([]);
   const [selectedId, setSelectedId] = useState(null);
-  const [loading, setLoading] = useState(true);
   const [authenticated, setAuthenticated] = useState(false);
+  const [user, setUser] = useState(null);
 
   useEffect(() => {
     fetch('http://localhost:8080/user', {credentials: 'include'})
       .then(res => {
         if (res.ok) {
-          setAuthenticated(true);
-          console.log(authenticated);
-          return habitsUpdate().then(({ data }) => setHabits(data));
+          return res.json();
         }
         else {
           setAuthenticated(false);
+        }
+      })
+      .then(userData => {
+        if (userData) {
+          setUser(userData);
+          setAuthenticated(true);
+          return habitsUpdate().then(({ data }) => setHabits(data));
         }
       })
   }, []);
@@ -57,7 +62,7 @@ function App() {
   return (
     <div>
       {/* Top Bar */}
-      <TopBar />
+      <TopBar user={user}/>
       {/* Side Bar */}
       <SideBar habits={habits} onSelect={setSelectedId} />
       <div className='flex justify-center h-screen bg-blue-950 pt-16 ml-20'>

@@ -11,3 +11,7 @@ export const deleteHabit = (id) => axiosInstance.delete(`/${id}`);
 export const completeHabitToday = (id) => axiosInstance.post(`/${id}/complete`);
 export const habitsUpdate = () => axiosInstance.post('/check');
 export const logout = () => {window.location.href='http://localhost:8080/logout'};
+export const getUser = async () => {
+    const res = await fetch('http://localhost:8080/user', { credentials: 'include' });
+    return await res.json();
+}
