@@ -15,3 +15,4 @@ export const getUser = async () => {
     const res = await fetch('http://localhost:8080/user', { credentials: 'include' });
     return await res.json();
 }
+export const getLeaderboard = () => axiosInstance.get('/leaderboard');
