@@ -10,10 +10,11 @@ A full-stack habit tracking web application that supports the user with maintain
 ## Features:
 - **GitHub OAuth2 Login:** Secure authentication using a GitHub account
 - **Creating Habits:** Create new habits by giving it a name and description
-- **Streak Tracking:** Mark a habit as complete each calender day to increment streak
+- **Streak Tracking:** Mark a habit as "complete" each calender day to increment streak
 - **Automatic Streak Reset:** If a habit is not completed within the calender day, the streak will reset to 0
 - **Longest Streak Tracking:** Records the highest streak achieved for the user
 - **Per-User Data:** Each user sees and manages their own habits
+- **Leaderboard:** Ranks all user streaks by longest current streak to inspire friendly competition
 
 ## To Get Started:
 - Java 24
@@ -54,6 +55,6 @@ Unit tests cover the habit service layer
 ```terminal
 mvn test
 ```
-JaCoCo coverage report is generated at `target/site/jacoco/index.html`, currently at 94% habit service layer coverage
+JaCoCo coverage report is generated at `target/site/jacoco/index.html`, currently at 92% habit service layer coverage
 
 By @Ron-Jiang
