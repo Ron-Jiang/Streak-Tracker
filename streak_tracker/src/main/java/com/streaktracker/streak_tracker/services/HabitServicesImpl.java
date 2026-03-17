@@ -97,6 +97,10 @@ public class HabitServicesImpl implements HabitServices {
         return habitRepository.findByUserId(userId);
     }
 
+    public List<Habit> getLeaderboard() {
+        return habitRepository.findAllByOrderByCurrentStreakDesc();
+    }
+
     // // update existing Habit
     // public Habit updateHabit(String habitId, String name, String description) {
     // Habit theHabit = habitRepository.findById(habitId).orElseThrow(() -> new

@@ -22,6 +22,8 @@ public interface HabitServices {
     // get all habits
     List<Habit> getAllHabits(String userId);
 
+    // get leaderboard
+    List<Habit> getLeaderboard();
     // // update existing habits
     // Habit updateHabit(String habitId, String name, String description);
 

@@ -6,6 +6,7 @@ import AddHabit from './AddHabit'
 import Welcome from './Welcome'
 import HabitScreen from './HabitScreen'
 import Login from './Login'
+import Leaderboard from './Leaderboard'
 
 function App() {
   const [habits, setHabits] = useState([]);
@@ -53,6 +54,9 @@ function App() {
     if (selectedId === 'add') {
       return <AddHabit onAdd={handleAdd} onSelect={setSelectedId} />
     }
+    if (selectedId === 'leaderboard') {
+      return <Leaderboard />
+    }
     if (selectedHabit) {
       return <HabitScreen selectedHabit={selectedHabit} onUpdate={handleUpdate} onDelete={handleDelete} />
     }
@@ -62,7 +66,7 @@ function App() {
   return (
     <div>
       {/* Top Bar */}
-      {authenticated && <TopBar user={user}/>}
+      {authenticated && <TopBar user={user} onSelect={setSelectedId}/>}
       {/* Side Bar */}
       {authenticated && <SideBar habits={habits} onSelect={setSelectedId} />}
       <div className={authenticated ? 'flex justify-center h-screen bg-zinc-950 pt-14 ml-20' : ''}>

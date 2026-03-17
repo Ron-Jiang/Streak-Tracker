@@ -56,6 +56,11 @@ public class HabitController {
         return ResponseEntity.ok(habitServices.habitsUpdate(getUserId(principal)));
     }
 
+    @GetMapping("/leaderboard")
+    public ResponseEntity<List<Habit>> getLeaderboard() {
+        return ResponseEntity.ok(habitServices.getLeaderboard());
+    }
+
     // @PutMapping("/{id}")
     // public ResponseEntity<Habit> updateHabit(@PathVariable String id, @RequestBody Habit habit) {
     //     return ResponseEntity.ok(habitServices.updateHabit(id, habit.getHabitName(), habit.getHabitDescription()));
